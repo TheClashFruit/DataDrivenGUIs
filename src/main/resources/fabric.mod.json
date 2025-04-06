@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "ddg",
+  "version": "${version}",
+  "name": "Data Driven GUIs",
+  "description": "A library to make making GUIs easier using xml & json files.",
+  "authors": [
+    "TheClashFruit"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/ddg/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.theclashfruit.ddg.client.DataDrivenGUIsClient"
+    ],
+    "main": [
+      "me.theclashfruit.ddg.DataDrivenGUIs"
+    ]
+  },
+  "mixins": [
+    "ddg.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
