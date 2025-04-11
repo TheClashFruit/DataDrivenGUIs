@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Root>
+    <Text>Text</Text>
+
+    <Button width="200" height="20">Button</Button>
+</Root>
