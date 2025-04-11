@@ -1,6 +1,5 @@
-package me.theclashfruit.networking;
+package me.theclashfruit.ddg.networking;
 
-import me.theclashfruit.ddg.Networking;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -8,7 +7,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record OpenCustomScreenPayload(Identifier screenId, String title) implements CustomPayload {
-    public static final CustomPayload.Id<OpenCustomScreenPayload> ID = new CustomPayload.Id<>(Networking.OPEN_CUSTOM_SCREEN);
+    public static final CustomPayload.Id<OpenCustomScreenPayload> ID = new CustomPayload.Id<>(Packets.OPEN_CUSTOM_SCREEN);
 
     public static final PacketCodec<RegistryByteBuf, OpenCustomScreenPayload> CODEC = PacketCodec.tuple(
         Identifier.PACKET_CODEC, OpenCustomScreenPayload::screenId,
