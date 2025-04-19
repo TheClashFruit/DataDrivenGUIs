@@ -3,6 +3,9 @@ package me.theclashfruit.ddg;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import me.theclashfruit.ddg.lib.ComponentRegistry;
+import me.theclashfruit.ddg.lib.components.ButtonComponent;
+import me.theclashfruit.ddg.lib.components.TextComponent;
 import me.theclashfruit.ddg.networking.OpenCustomScreenPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -23,6 +26,10 @@ public class DataDrivenGUIs implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("DataDrivenGUIs is initializing...");
+
+        // Register components for `Data Driven GUIs`.
+        ComponentRegistry.register("Button", ButtonComponent.class);
+        ComponentRegistry.register("Text", TextComponent.class);
 
         PayloadTypeRegistry.playS2C().register(OpenCustomScreenPayload.ID, OpenCustomScreenPayload.CODEC);
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {

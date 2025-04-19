@@ -1,36 +1,28 @@
 package me.theclashfruit.ddg.lib;
 
-import me.theclashfruit.ddg.lib.components.Button;
 import me.theclashfruit.ddg.lib.components.Component;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import static me.theclashfruit.ddg.DataDrivenGUIs.LOGGER;
+import static me.theclashfruit.ddg.lib.ComponentRegistry.components;
 
 public class CustomScreen extends Screen {
     private Screen parent = null;
 
-    private Identifier id;
-
+    private final Identifier id;
     private final ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
-    private Map<String, Component> components = Map.of(
-        "Button", new Button()
-    );
 
     // Constructors
     public CustomScreen(Identifier screenId, Text title, Screen parent) {
@@ -60,7 +52,20 @@ public class CustomScreen extends Screen {
 
                     Element root = doc.getDocumentElement();
 
-                    LOGGER.info("Root Element: {}", root.getNodeName());
+                    if (root.getNodeName().equals("Root")) {
+                        NodeList nl = root.getChildNodes();
+
+                        for (int i = 0; i < nl.getLength(); i++) {
+                            Class<? extends Component> componentClass = components.get(nl.item(i).getNodeName());
+                            if (componentClass != null) {
+                                Component component = componentClass
+                                    .getConstructor(Node.class)
+                                    .newInstance(nl.item(i));
+
+                                this.addDrawable(component.drawable);
+                            }
+                        }
+                    }
                 }
             } else {
                 LOGGER.error("Resource Not Found: {}", id);

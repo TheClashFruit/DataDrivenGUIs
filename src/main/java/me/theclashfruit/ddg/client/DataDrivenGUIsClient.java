@@ -15,11 +15,11 @@ public class DataDrivenGUIsClient implements ClientModInitializer {
             Identifier screenId = payload.screenId();
             String title = payload.title();
 
-            try (MinecraftClient client = context.client()) {
-                client.execute(() -> {
-                    client.setScreen(new CustomScreen(screenId, Text.translatable(title)));
-                });
-            }
+            @SuppressWarnings("resource")
+            MinecraftClient client = context.client();
+            client.execute(() -> {
+                client.setScreen(new CustomScreen(screenId, Text.translatable(title)));
+            });
         });
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Root>
-    <Text>Text</Text>
-
-    <Button width="200" height="20">Button</Button>
+    <Button width="200" height="20" position="(16;16)">Button</Button>
+    <Text position="(16;44)">Text</Text>
 </Root>
