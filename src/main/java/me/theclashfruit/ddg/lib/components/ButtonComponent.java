@@ -30,6 +30,7 @@ public class ButtonComponent extends Component {
             btn.position(0, 0);
 
         this.drawable = btn.build();
+        this.widget = btn.build();
     }
 
     @Override

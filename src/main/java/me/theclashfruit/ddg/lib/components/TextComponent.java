@@ -20,5 +20,7 @@ public class TextComponent extends Component {
             ((TextWidget) this.drawable).setX(pos.x);
             ((TextWidget) this.drawable).setY(pos.y);
         }
+
+        this.widget = (TextWidget) this.drawable;
     }
 }
