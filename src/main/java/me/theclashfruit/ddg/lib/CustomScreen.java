@@ -1,6 +1,5 @@
 package me.theclashfruit.ddg.lib;
 
-import me.theclashfruit.ddg.lib.component.Component;
 import me.theclashfruit.ddg.util.ClientCache;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static me.theclashfruit.ddg.DataDrivenGUIs.LOGGER;
-import static me.theclashfruit.ddg.lib.component.ComponentRegistry.components;
+import static me.theclashfruit.ddg.lib.registry.ComponentRegistry.components;
 
 public class CustomScreen extends Screen {
     private Screen parent = null;

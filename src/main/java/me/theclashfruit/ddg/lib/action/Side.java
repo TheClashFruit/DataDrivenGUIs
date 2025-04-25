@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.actions;
+package me.theclashfruit.ddg.lib.action;
 
 public enum Side {
     CLIENT("client"),

@@ -1,4 +1,6 @@
-package me.theclashfruit.ddg.lib.component;
+package me.theclashfruit.ddg.lib.registry;
+
+import me.theclashfruit.ddg.lib.Component;
 
 import java.util.HashMap;
 

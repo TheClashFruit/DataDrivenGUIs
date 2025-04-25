@@ -3,23 +3,20 @@ package me.theclashfruit.ddg.builtin.components;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import me.theclashfruit.ddg.lib.actions.Action;
-import me.theclashfruit.ddg.lib.actions.ActionModel;
-import me.theclashfruit.ddg.lib.actions.ActionRegistry;
+import me.theclashfruit.ddg.lib.IAction;
+import me.theclashfruit.ddg.lib.action.ActionModel;
+import me.theclashfruit.ddg.lib.registry.ActionRegistry;
 import me.theclashfruit.ddg.lib.attribute.AttributeError;
 import me.theclashfruit.ddg.lib.attribute.AttributeParser;
 import me.theclashfruit.ddg.builtin.attributes.Position;
-import me.theclashfruit.ddg.lib.component.Component;
+import me.theclashfruit.ddg.lib.Component;
 import me.theclashfruit.ddg.util.ClientCache;
-import me.theclashfruit.ddg.util.DataCache;
 import me.theclashfruit.ddg.util.IdentifierTypeAdapter;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.w3c.dom.Node;
 
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
@@ -38,7 +35,7 @@ public class ButtonComponent extends Component {
                 JsonObject res = (JsonObject) this.attributes.get("action");
                 Identifier id = Identifier.of(res.get("type").getAsString());
 
-                Class<? extends Action> action = ActionRegistry.actions.get(id);
+                Class<? extends IAction> action = ActionRegistry.actions.get(id);
 
                 if (action == null) {
                     LOGGER.error("Action not found: {}", id);
@@ -46,13 +43,15 @@ public class ButtonComponent extends Component {
                 }
 
                 try {
-                    Constructor<? extends Action> constructor = action.getConstructor();
-                    Action actionInstance = constructor.newInstance();
+                    Constructor<? extends IAction> constructor = action.getConstructor();
+                    IAction actionInstance = constructor.newInstance();
 
                     Class<?> model = actionInstance.getActionModel();
                     Object actionObj = gson.fromJson(res.get("action"), model);
 
-                    actionInstance.execute(new ActionModel<>(id, actionObj));
+                    if(!actionInstance.execute(new ActionModel<>(id, actionObj))) {
+                        LOGGER.warn("Failed to execute action.");
+                    }
                 } catch (Exception e) {
                     LOGGER.error("Error executing action.", e);
                 }

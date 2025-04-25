@@ -1,7 +1,7 @@
 package me.theclashfruit.ddg.builtin.components;
 
 import me.theclashfruit.ddg.lib.attribute.AttributeParser;
-import me.theclashfruit.ddg.lib.component.Component;
+import me.theclashfruit.ddg.lib.Component;
 import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import org.w3c.dom.Node;
 

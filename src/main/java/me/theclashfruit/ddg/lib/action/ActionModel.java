@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.actions;
+package me.theclashfruit.ddg.lib.action;
 
 import net.minecraft.util.Identifier;
 

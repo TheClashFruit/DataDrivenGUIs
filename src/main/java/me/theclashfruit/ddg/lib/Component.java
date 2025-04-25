@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.component;
+package me.theclashfruit.ddg.lib;
 
 import me.theclashfruit.ddg.lib.attribute.AttributeError;
 import me.theclashfruit.ddg.builtin.attributes.Position;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static me.theclashfruit.ddg.DataDrivenGUIs.LOGGER;
-import static me.theclashfruit.ddg.lib.component.ComponentRegistry.components;
+import static me.theclashfruit.ddg.lib.registry.ComponentRegistry.components;
 
 public class Component {
     public String text = "";
