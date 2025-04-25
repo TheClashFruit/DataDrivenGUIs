@@ -22,7 +22,7 @@ public class DataDrivenGUIsDataGen implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-        Path langDir = Paths.get("../../lang");
+        Path langDir = Paths.get("../../../../lang");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(langDir, "*.lang")) {
             for (Path file : stream) {
                 String fileName = file.getFileName().toString();

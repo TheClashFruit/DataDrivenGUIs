@@ -112,7 +112,9 @@ public class CustomScreen extends Screen {
                     footer.add(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).size(200, 20).build());
 
                     this.layout.forEachChild(this::addDrawableChild);
-                    this.initTabNavigation();
+                    //#if MC < 1.20.2
+                    //$$ this.initTabNavigation();
+                    //#endif
                 } else throw new RuntimeException("Invalid Root Node: " + root.getNodeName());
             }
         } catch (Exception e) {
@@ -123,11 +125,13 @@ public class CustomScreen extends Screen {
         }
     }
 
-    @Override
-    protected void initTabNavigation() {
-        if (this.layout != null)
-            this.layout.refreshPositions();
-    }
+    //#if MC < 1.20.2
+    //$$ @Override
+    //$$ protected void initTabNavigation() {
+    //$$     if (this.layout != null)
+    //$$         this.layout.refreshPositions();
+    //$$ }
+    //#endif
 
     @Override
     public void close() {

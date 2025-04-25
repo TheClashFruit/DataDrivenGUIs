@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "ddg",
-  "version": "${version}",
-  "name": "Data Driven GUIs",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
   "description": "A library to make making GUIs easier using xml & json files.",
   "authors": [
     "TheClashFruit"
@@ -26,8 +26,15 @@
     "ddg.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": ">=0.16.12",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${mc_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
   }
 }
