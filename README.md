@@ -1,6 +1,6 @@
 # Data Driven GUIs
 
-<div>
+<p>
   <a href="https://modrinth.com/mod/ddg">
     <img alt="Modrinth" height="48" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg" />
   </a>
@@ -13,7 +13,7 @@
   <a href="https://discord.gg/CWEApqJ6rc">
     <img alt="Discord" height="48" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-singular_vector.svg">
   </a>
-</div>
+</p>
 
 A library to make making GUIs easier using xml & json files.
 
