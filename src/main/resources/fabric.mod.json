@@ -17,6 +17,9 @@
     ],
     "main": [
       "me.theclashfruit.ddg.DataDrivenGUIs"
+    ],
+    "fabric-datagen": [
+      "me.theclashfruit.ddg.datagen.DataDrivenGUIsDataGen"
     ]
   },
   "mixins": [
