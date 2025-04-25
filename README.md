@@ -17,14 +17,16 @@
 
 A library to make making GUIs easier using xml & json files.
 
-This mod mainly aims to make making GUIs as painless as possible, but with this it also allows resource packs to modify GUIs or even create new ones. The mod however currently doesn't allow the modification of the default GUIs in Minecraft.
+This mod mainly aims to make making GUIs as painless as possible, but with this it also allows resource packs to modify GUIs or even create new ones. The mod however doesn't allow the modification of the default GUIs in Minecraft.
 
 ## Features
 
 * **XML Based GUIs**: Write your GUIs like you would a web page.
 * **JSON Based Actions**: Make buttons do actions.
 * **Uses Built-in Widgets**: No web rendering shenanigans.
-* **Custom Server Packet**: Offers servers to open custom GUIs they have created with their resourcepacks.
+* **Java API**: An easy to use api to extend the mod's functionality.
+
+> Note: This mod is both a library and a standalone mod, you can just install it and use the built-in functionalities or extend it with even more features.
 
 ## Usage
 
