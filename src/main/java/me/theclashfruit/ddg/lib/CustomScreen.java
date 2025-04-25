@@ -1,13 +1,12 @@
 package me.theclashfruit.ddg.lib;
 
-import me.theclashfruit.ddg.lib.components.Component;
+import me.theclashfruit.ddg.lib.component.Component;
 import me.theclashfruit.ddg.util.ClientCache;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
-import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -18,17 +17,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static me.theclashfruit.ddg.DataDrivenGUIs.LOGGER;
-import static me.theclashfruit.ddg.lib.ComponentRegistry.components;
+import static me.theclashfruit.ddg.lib.component.ComponentRegistry.components;
 
 public class CustomScreen extends Screen {
     private Screen parent = null;
@@ -114,6 +110,8 @@ public class CustomScreen extends Screen {
                     this.layout.forEachChild(this::addDrawableChild);
                     //#if MC < 1.20.2
                     //$$ this.initTabNavigation();
+                    //#else
+                    this.layout.refreshPositions();
                     //#endif
                 } else throw new RuntimeException("Invalid Root Node: " + root.getNodeName());
             }

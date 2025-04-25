@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Root>
-    <Button width="200" height="20" position="(16;16)">Button</Button>
+    <Meta>
+
+    </Meta>
+
+    <Button width="200" height="20" position="(16;16)" action="ddg:action/open_example.json">Button</Button>
     <Text position="(16;44)">Text</Text>
 </Root>

@@ -2,6 +2,7 @@ package me.theclashfruit.ddg.util;
 
 import net.minecraft.resource.Resource;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +17,17 @@ public class DataCache {
     private static Map<Identifier, Resource> screenCache = Map.of();
     private static Map<Identifier, Resource> actionCache = Map.of();
 
-    public static Map<Identifier, String> getData() {
-        return screenCache.entrySet().stream()
+    public static Map<Identifier, String> getScreenData() {
+        return getIdentifierStringMap(screenCache);
+    }
+
+    public static Map<Identifier, String> getActionData() {
+        return getIdentifierStringMap(actionCache);
+    }
+
+    @NotNull
+    private static Map<Identifier, String> getIdentifierStringMap(Map<Identifier, Resource> cache) {
+        return cache.entrySet().stream()
             .collect(Collectors.toMap(Map.Entry::getKey, entry -> {
                 try (InputStream input = entry.getValue().getInputStream()) {
                     StringBuilder textBuilder = new StringBuilder();
@@ -46,6 +56,10 @@ public class DataCache {
 
     public static List<Identifier> getAllActionIdentifiers() {
         return List.copyOf(screenCache.keySet());
+    }
+
+    public static Resource getAction(Identifier id) {
+        return actionCache.get(id);
     }
 
     public static void clearCache() {

@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.attributes;
+package me.theclashfruit.ddg.lib.attribute;
 
 public class AttributeError extends RuntimeException {
     public AttributeError(String attribute, String value) {

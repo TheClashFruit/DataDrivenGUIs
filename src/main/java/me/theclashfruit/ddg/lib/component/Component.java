@@ -1,8 +1,8 @@
-package me.theclashfruit.ddg.lib.components;
+package me.theclashfruit.ddg.lib.component;
 
-import me.theclashfruit.ddg.lib.attributes.AttributeError;
-import me.theclashfruit.ddg.lib.attributes.Position;
-import me.theclashfruit.ddg.lib.attributes.AttributeParser;
+import me.theclashfruit.ddg.lib.attribute.AttributeError;
+import me.theclashfruit.ddg.builtin.attributes.Position;
+import me.theclashfruit.ddg.lib.attribute.AttributeParser;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.widget.Widget;
 import org.w3c.dom.Node;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static me.theclashfruit.ddg.DataDrivenGUIs.LOGGER;
-import static me.theclashfruit.ddg.lib.ComponentRegistry.components;
+import static me.theclashfruit.ddg.lib.component.ComponentRegistry.components;
 
 public class Component {
     public String text = "";

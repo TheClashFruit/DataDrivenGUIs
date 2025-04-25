@@ -1,21 +1,18 @@
-package me.theclashfruit.ddg.lib.components;
+package me.theclashfruit.ddg.builtin.components;
 
-import me.theclashfruit.ddg.lib.attributes.AttributeParser;
-import me.theclashfruit.ddg.lib.attributes.Position;
-import net.minecraft.client.MinecraftClient;
+import me.theclashfruit.ddg.lib.attribute.AttributeParser;
+import me.theclashfruit.ddg.lib.component.Component;
 import net.minecraft.client.gui.widget.DirectionalLayoutWidget;
-import net.minecraft.client.gui.widget.TextWidget;
-import net.minecraft.text.Text;
 import org.w3c.dom.Node;
 
 import java.util.List;
 import java.util.Map;
 
-public class HLayoutComponent extends Component {
-    public HLayoutComponent(Node element) {
+public class VLayoutComponent extends Component {
+    public VLayoutComponent(Node element) {
         super(element);
 
-        this.widget = new DirectionalLayoutWidget(0, 0, DirectionalLayoutWidget.DisplayAxis.HORIZONTAL)
+        this.widget = new DirectionalLayoutWidget(0, 0, DirectionalLayoutWidget.DisplayAxis.VERTICAL)
             .spacing(attributes.get("gap") != null ? (int) attributes.get("gap") : 0);
 
         List<Component> children = this.getChildren();

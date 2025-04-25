@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.attributes;
+package me.theclashfruit.ddg.lib.attribute;
 
 @FunctionalInterface
 public interface AttributeParser<T> {

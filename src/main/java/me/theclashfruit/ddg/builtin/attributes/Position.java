@@ -1,4 +1,4 @@
-package me.theclashfruit.ddg.lib.attributes;
+package me.theclashfruit.ddg.builtin.attributes;
 
 import org.intellij.lang.annotations.RegExp;
 

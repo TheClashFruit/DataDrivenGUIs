@@ -1,6 +1,7 @@
 package me.theclashfruit.ddg.client;
 
 import me.theclashfruit.ddg.lib.CustomScreen;
+import me.theclashfruit.ddg.networking.ListActionsPayload;
 import me.theclashfruit.ddg.networking.ListScreensPayload;
 import me.theclashfruit.ddg.networking.OpenCustomScreenPayload;
 import me.theclashfruit.ddg.util.ClientCache;
@@ -30,7 +31,10 @@ public class DataDrivenGUIsClient implements ClientModInitializer {
         });
 
         ClientPlayNetworking.registerGlobalReceiver(ListScreensPayload.ID, (payload, context) -> {
-            ClientCache.setCache(payload.screens());
+            ClientCache.setScreenCache(payload.screens());
+        });
+        ClientPlayNetworking.registerGlobalReceiver(ListActionsPayload.ID, (payload, context) -> {
+            ClientCache.setActionCache(payload.actions());
         });
     }
 }

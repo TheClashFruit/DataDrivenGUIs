@@ -3,11 +3,14 @@ package me.theclashfruit.ddg;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import me.theclashfruit.ddg.lib.ComponentRegistry;
-import me.theclashfruit.ddg.lib.components.ButtonComponent;
-import me.theclashfruit.ddg.lib.components.HLayoutComponent;
-import me.theclashfruit.ddg.lib.components.TextComponent;
-import me.theclashfruit.ddg.lib.components.VLayoutComponent;
+import me.theclashfruit.ddg.builtin.actions.OpenScreenAction;
+import me.theclashfruit.ddg.lib.actions.ActionRegistry;
+import me.theclashfruit.ddg.lib.component.ComponentRegistry;
+import me.theclashfruit.ddg.builtin.components.ButtonComponent;
+import me.theclashfruit.ddg.builtin.components.HLayoutComponent;
+import me.theclashfruit.ddg.builtin.components.TextComponent;
+import me.theclashfruit.ddg.builtin.components.VLayoutComponent;
+import me.theclashfruit.ddg.networking.ListActionsPayload;
 import me.theclashfruit.ddg.networking.ListScreensPayload;
 import me.theclashfruit.ddg.networking.OpenCustomScreenPayload;
 import me.theclashfruit.ddg.util.DataCache;
@@ -16,6 +19,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -32,14 +36,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class DataDrivenGUIs implements ModInitializer {
     public static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger("DataDrivenGUIs");
@@ -56,11 +54,20 @@ public class DataDrivenGUIs implements ModInitializer {
         ComponentRegistry.register("Button", ButtonComponent.class);
         ComponentRegistry.register("Text", TextComponent.class);
 
+        // Register actions for `Data Driven GUIs`.
+        ActionRegistry.register(Identifier.of("ddg", "open_screen"), OpenScreenAction.class);
+
         PayloadTypeRegistry.playS2C().register(OpenCustomScreenPayload.ID, OpenCustomScreenPayload.CODEC);
         PayloadTypeRegistry.playS2C().register(ListScreensPayload.ID, ListScreensPayload.CODEC);
 
+        PayloadTypeRegistry.playS2C().register(ListActionsPayload.ID, ListActionsPayload.CODEC);
+
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             DataDrivenGUIs.server = server;
+        });
+        ServerPlayConnectionEvents.JOIN.register((handler, player, server) -> {
+            player.sendPacket(new ListScreensPayload(DataCache.getScreenData()));
+            player.sendPacket(new ListActionsPayload(DataCache.getActionData()));
         });
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -99,11 +106,13 @@ public class DataDrivenGUIs implements ModInitializer {
                 DataCache.clearCache();
                 DataCache.setCache(screens, actions);
 
-                ListScreensPayload payload = new ListScreensPayload(DataCache.getData());
+                ListScreensPayload screensPayload = new ListScreensPayload(DataCache.getScreenData());
+                ListActionsPayload actionsPayload = new ListActionsPayload(DataCache.getActionData());
 
                 if (server != null)
                     for (ServerPlayerEntity player : PlayerLookup.all(server)) {
-                        ServerPlayNetworking.send(player, payload);
+                        ServerPlayNetworking.send(player, screensPayload);
+                        ServerPlayNetworking.send(player, actionsPayload);
                     }
             }
         });
@@ -117,11 +126,11 @@ public class DataDrivenGUIs implements ModInitializer {
             : Objects.requireNonNull(context.getSource().getPlayer());
 
         if (!DataCache.getAllScreenIdentifiers().contains(screen)) {
-            context.getSource().sendError(Text.translatable("ddg.command.screen_not_found", screen));
+            context.getSource().sendError(Text.translatable("ddg.command.screen_not_found"));
             return 0;
         }
 
-        ServerPlayNetworking.send(player, new ListScreensPayload(DataCache.getData()));
+        //ServerPlayNetworking.send(player, new ListScreensPayload(DataCache.getData()));
         ServerPlayNetworking.send(player, new OpenCustomScreenPayload(screen, title));
         return 1;
     }

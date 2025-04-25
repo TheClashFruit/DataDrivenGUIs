@@ -1,6 +1,7 @@
 {
   "type": "ddg:open_screen",
   "action": {
-    "screen": "ddg:screen/example.xml"
+    "screen": "ddg:screen/example.xml",
+    "title": "Hollow World!"
   }
 }
